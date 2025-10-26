@@ -5,12 +5,14 @@ import api from "@/lib/api";
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [accessToken, setAccessToken] = useState<string | null>(null);
 
-    const refreshToken = async () => {
+    const refreshToken = async (): Promise<string | null> => {
         try {
             const res = await api.get('/auth/refresh-token');
             setAccessToken(res.data.accessToken);
+            return res.data.accessToken;
         } catch {
             setAccessToken(null);
+            return null;
         }
     };
 
@@ -19,7 +21,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ accessToken }}>
+        <AuthContext.Provider value={{ accessToken, refreshToken }}>
             {children}
         </AuthContext.Provider>
     );

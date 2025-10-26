@@ -5,27 +5,8 @@ const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json'
-  }
-});
-
-// Add request interceptor for auth tokens if needed
-api.interceptors.request.use(
-  config => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
   },
-  error => Promise.reject(error)
-);
-
-// export const productService = {
-//   getAll: () => api.get('/products'),
-//   getById: (id: number) => api.get(`/products/${id}`),
-//   create: (data) => api.post('/products', data),
-//   update: (id, data) => api.put(`/products/${id}`, data),
-//   delete: (id) => api.delete(`/products/${id}`)
-// };
+  withCredentials: true
+});
 
 export default api;

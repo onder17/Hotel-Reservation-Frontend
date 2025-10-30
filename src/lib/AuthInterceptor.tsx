@@ -13,7 +13,6 @@ export const AuthInterceptor = () => {
             return config;
         });
 
-        // Response interceptor
         const resId = api.interceptors.response.use(
             res => res,
             async error => {

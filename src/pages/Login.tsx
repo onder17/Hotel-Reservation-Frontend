@@ -8,12 +8,15 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { LoginRequest } from "@/types/auth";
 import { useAuth } from "@/hooks/useAuth";
+import { Link, useNavigate } from "react-router-dom";
+import LoginImage from "@/assets/login-image.svg";
 
 export default function LoginPage() {
   const { register, handleSubmit, reset } = useForm<LoginRequest>();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: LoginRequest) => {
     setErrorMessage(null);
@@ -22,6 +25,7 @@ export default function LoginPage() {
     login(data).then(token => {
       console.log("Login Success");
       reset();
+      navigate("/");
       return token;
     }).catch((error) => {
       console.error("Login Error", error);
@@ -37,7 +41,7 @@ export default function LoginPage() {
           {/* Left - Görsel / Bilgilendirme */}
           <div className="hidden lg:flex flex-col gap-6 pr-8">
             <div className="rounded-2xl overflow-hidden shadow-2xl dark:shadow-none">
-              <div className="w-full h-80 bg-[url('/images/login-illustration.jpg')] bg-center bg-cover"></div>
+              <img src={LoginImage} alt="" className="w-full h-auto bg-center" />
             </div>
             <div>
               <h3 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">Hoş geldiniz!</h3>
@@ -88,7 +92,7 @@ export default function LoginPage() {
                   </Button>
 
                   <div className="text-center mt-4 text-sm text-slate-600 dark:text-slate-400">
-                    Hesabınız yok mu? <a href="#" className="text-sky-600 hover:underline">Kayıt Ol</a>
+                    Hesabınız yok mu? <Link to="/register" className="text-sky-600 hover:underline">Kayıt Ol</Link>
                   </div>
 
                 </form>

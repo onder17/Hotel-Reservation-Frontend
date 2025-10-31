@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const refreshToken = (): Promise<string> => {
         return axiosInstance
-            .get('/auth/refresh-token')
+            .post('/auth/refresh')
             .then((res) => {
                 const token = res.data.accessToken;
                 setAccessToken(token);
@@ -74,7 +74,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     useEffect(() => {
-        refreshToken();
+        refreshToken().catch((error) => {
+            console.log(error.response?.data?.message);
+        });
     }, []);
 
     return (

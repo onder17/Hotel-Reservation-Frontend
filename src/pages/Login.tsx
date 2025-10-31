@@ -15,8 +15,10 @@ export default function LoginPage() {
   const { register, handleSubmit, reset } = useForm<LoginRequest>();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { accessToken, login } = useAuth();
   const navigate = useNavigate();
+
+  if(accessToken) navigate("/");
 
   const onSubmit = async (data: LoginRequest) => {
     setErrorMessage(null);

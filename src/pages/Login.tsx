@@ -18,7 +18,7 @@ export default function LoginPage() {
   const { accessToken, login } = useAuth();
   const navigate = useNavigate();
 
-  if(accessToken) navigate("/");
+  if (accessToken) navigate("/");
 
   const onSubmit = async (data: LoginRequest) => {
     setErrorMessage(null);

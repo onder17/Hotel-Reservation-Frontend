@@ -18,7 +18,7 @@ export default function RegisterPage() {
   const { accessToken, register: registerUser } = useAuth();
   const navigate = useNavigate();
 
-  if(accessToken) navigate("/");
+  if (accessToken) navigate("/");
 
   const onSubmit = async (data: RegisterRequest & { passwordConfirm: string }) => {
     if (data.password !== data.passwordConfirm) {

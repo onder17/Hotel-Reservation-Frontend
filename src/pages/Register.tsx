@@ -15,15 +15,17 @@ export default function RegisterPage() {
   const { register, handleSubmit, reset } = useForm<RegisterRequest & { passwordConfirm: string }>();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const { register: registerUser } = useAuth();
+  const { accessToken, register: registerUser } = useAuth();
   const navigate = useNavigate();
+
+  if (accessToken) navigate("/");
 
   const onSubmit = async (data: RegisterRequest & { passwordConfirm: string }) => {
     if (data.password !== data.passwordConfirm) {
       setErrorMessage("Şifreler eşleşmiyor!");
       return;
     }
-    
+
     setErrorMessage(null);
     setLoading(true);
 

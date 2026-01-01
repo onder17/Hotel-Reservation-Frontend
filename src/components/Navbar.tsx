@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "./ui/navigation-menu";
-import { Button } from "./ui/button";
 import Logo from "@/assets/hotel_logo.svg";
-import ThemeToggle from "./ThemeToggle";
-
+import { Button } from "@/components/ui/button";
+import ThemeToggle from "@/components/ThemeToggle";
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from "@/components/ui/navigation-menu";
 interface NavbarProps {
   logo?: {
     src: string;

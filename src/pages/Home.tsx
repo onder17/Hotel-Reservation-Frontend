@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 type FormSchema = {
   city: string;
@@ -56,6 +57,7 @@ const countries = [
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const form = useForm<FormSchema>({
     defaultValues: {
@@ -69,7 +71,25 @@ export default function Home() {
   const toValue = form.watch("to");
 
   function onSubmit(data: FormSchema) {
-    console.log(data);
+    const { city, from, to } = data;
+
+    if (!city || !from || !to) {
+      console.log("Tüm alanlar doldurulmalıdır.");
+      return;
+    }
+
+    const searchParams: { [key: string]: string } = {
+      city: city,
+      checkIn: from.toLocaleString("sv").split(" ")[0],
+      checkOut: to.toLocaleString("sv").split(" ")[0],
+    };
+
+    navigate({
+      pathname: "/rooms",
+      search: createSearchParams(searchParams).toString(),
+    }, {
+      preventScrollReset: false
+    });
   }
 
   return (

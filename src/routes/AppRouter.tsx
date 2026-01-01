@@ -4,6 +4,7 @@ import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
+import Rooms from "@/pages/Rooms";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/about", element: <About /> },
+      { path: "/rooms", element: <Rooms /> },
     ],
   },
   {
